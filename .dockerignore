@@ -1,4 +1,7 @@
 .git
+docs
+tests
+.github
 *.gitignore
 
 *.mo
