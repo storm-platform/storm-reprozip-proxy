@@ -5,9 +5,3 @@
 # storm-reprozip-proxy is free software; you can redistribute it and/or
 # modify it under the terms of the MIT License; see LICENSE file for more
 # details.
-
-"""Proxy to handling files into reprounzip-docker executions"""
-
-from .version import __version__
-
-__all__ = "__version__"

@@ -8,11 +8,8 @@
 
 """Proxy to handling files into reprounzip-docker executions"""
 
-# TODO: This is an example file. Remove it if your package does not use any
-# extra configuration variables.
+import os
 
-STORM_REPROZIP_PROXY_DEFAULT_VALUE = 'foobar'
-"""Default value for the application."""
+REPROZIP_PROXY_DOCKER_IMAGE_TAG = "storm/storm-reprozip-proxy:latest"
 
-STORM_REPROZIP_PROXY_BASE_TEMPLATE = 'storm_reprozip_proxy/base.html'
-"""Default base template for the demo page."""
+REPROZIP_INCLUDE_USER_DEFINITION = int(os.getenv("REPROZIP_INCLUDE_USER_DEFINITION", 1))
