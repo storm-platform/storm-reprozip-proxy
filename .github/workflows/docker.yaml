@@ -1,7 +1,7 @@
 #
 # Copyright (C) 2021 Storm Project.
 #
-# storm-job-reana is free software; you can redistribute it and/or modify it
+# storm-reprozip-proxy is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
 # This file is based on: https://github.com/rocker-org/drd/blob/e76dc0eeb94a8d10a28a70ed70928a04c74e2594/.github/workflows/docker.yaml
 
