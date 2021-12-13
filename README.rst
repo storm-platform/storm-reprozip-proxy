@@ -26,8 +26,8 @@
 .. image:: https://img.shields.io/github/tag/storm-platform/storm-reprozip-proxy.svg
         :target: https://github.com/storm-platform/storm-reprozip-proxy/releases
 
-.. image:: https://github.com/storm-platform/storm-reprozip-proxy/workflows/CI/badge.svg
-        :target: https://github.com/storm-platform/storm-reprozip-proxy/actions?query=workflow%3ACI
+.. image:: https://github.com/storm-platform/storm-reprozip-proxy/workflows/dockerhub/badge.svg
+        :target: https://github.com/storm-platform/storm-reprozip-proxy/actions?query=workflow%3dockerhub
 
 .. image:: https://img.shields.io/discord/689541907621085198?logo=discord&logoColor=ffffff&color=7389D8
         :target: https://discord.com/channels/689541907621085198#
