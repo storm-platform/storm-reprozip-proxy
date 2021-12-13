@@ -7,14 +7,13 @@
 FROM golang:1.14.12
 
 #
-# Install base dependencies
+# Copy files
 #
-RUN go get -u github.com/hugocarreira/go-decent-copy
+COPY parser/ /usr/src/app/parser
 
 #
-# Build
+# Build the Storm Reprozip parser module
 #
-COPY docker/reprozip/parser/src/parser.go /usr/src/app/parser.go
-
-WORKDIR /usr/src/app
-RUN go build -o storm-parser parser.go
+WORKDIR /usr/src/app/parser
+RUN go mod download \
+    && go build -o storm-reprozip-parser

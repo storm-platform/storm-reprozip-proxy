@@ -8,7 +8,7 @@
 #
 # Proxing the reprozip experiment bundle
 #
-storm-job-reana reprozip run --bundle /opt/input/package.rpz
+storm-reprozip-proxy run --bundle /opt/input/package.rpz --no-include-user-definition
 
 #
 # Creating a base user

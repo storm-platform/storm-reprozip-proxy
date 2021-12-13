@@ -8,7 +8,7 @@
 # Compiled tool layers
 #
 FROM amd64/busybox:1.30.0-glibc as busybox
-FROM storm/storm-reprozip-parser:0.1 as storm-parser
+FROM stormproject/storm-reprozip-parser:latest as storm-reprozip-parser
 
 FROM ubuntu:20.04
 
@@ -18,12 +18,26 @@ FROM ubuntu:20.04
 RUN apt update -y \
     && apt install \
         git \
+        curl \
         python3 \
         python3-pip \
-        python3-dev -y
+        python3-dev -y \
+    && pip3 install poetry
 
 #
-# Install busybox (1.30 glibc - used to fix bug 11651[https://bugs.busybox.net/show_bug.cgi?id=11651])
+# Install storm-reprozip
+#
+COPY . /usr/src/app/storm_reprozip_proxy
+RUN cd /usr/src/app/storm_reprozip_proxy \
+    # Configuring the poetry to install the dependencies
+    # in the system site package
+    && poetry config virtualenvs.create false \
+    && poetry install
+
+#
+# Install busybox (1.30 glibc - used to fix the bug 11651[https://bugs.busybox.net/show_bug.cgi?id=11651])
+# The issue was solved based on solutions presented in the distroless issue #225
+# (https://github.com/GoogleContainerTools/distroless/issues/225).
 #
 COPY --from=busybox /bin/busybox /busybox
 RUN ["/busybox", "--install", "/bin"]
@@ -31,21 +45,14 @@ RUN ["/busybox", "--install", "/bin"]
 #
 # Install storm-reprozip-parser
 #
-COPY --from=storm-parser /usr/src/app/storm-parser /storm-parser
-
-#
-# Install storm-reprozip
-#
-COPY . /opt/proxy/reprozip_proxy
-RUN cd /opt/proxy/reprozip_proxy/ \
-    && pip3 install -e .[reprozip-cli]
+COPY --from=storm-reprozip-parser /usr/src/app/parser/storm-reprozip-parser /storm-reprozip-parser
 
 #
 # Environment files
 #
-COPY docker/reprozip/base/third-party/ /opt/third-party
+COPY docker/base/third-party/ /opt/third-party
 RUN cd /opt/third-party \
     && chmod +x install.sh \
     && ./install.sh
 
-RUN chmod +x /rpzsudo /rpztar /storm-parser
+RUN chmod +x /rpzsudo /rpztar /storm-reprozip-parser

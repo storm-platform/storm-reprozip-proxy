@@ -1,32 +1,19 @@
 //
 // Copyright (C) 2021 Storm Project.
 //
-// storm-job-reana is free software; you can redistribute it and/or modify it
+// storm-reprozip-proxy is free software; you can redistribute it and/or modify it
 // under the terms of the MIT License; see LICENSE file for more details.
 
-package main
+package parser
 
 import (
 	"encoding/json"
 	"fmt"
 	"os"
-
 	path "path"
 
-	decentcopy "github.com/hugocarreira/go-decent-copy"
+	decentcopy "github.com/storm-platform/tp-go-decent-copy"
 )
-
-type FileDefinition struct {
-	Source      string `json:"source"`
-	Target      string `json:"target"`
-	ExecutionId string `json:"executionId"`
-	Type        string `json:"type"`
-}
-
-type Configuration struct {
-	Inputs  []FileDefinition `json:"inputs"`
-	Outputs []FileDefinition `json:"outputs"`
-}
 
 func LoadConfigurationFile(filename string) (Configuration, error) {
 
@@ -45,21 +32,12 @@ func LoadConfigurationFile(filename string) (Configuration, error) {
 	return config, err
 }
 
-func main() {
-	fmt.Println("Reading...")
-	argsWithoutProg := os.Args[1:]
-
-	// Extract some arguments
-	fileType := argsWithoutProg[2]
-	executionId := argsWithoutProg[0]
-
-	// Reading the definition file
-	config, _ := LoadConfigurationFile(argsWithoutProg[1])
+func Parser(operationType string, executionId string, config Configuration) {
 
 	// Selecting the file type
 	var files []FileDefinition
 
-	if fileType == "input" {
+	if operationType == "input" {
 		files = config.Inputs
 	} else {
 		files = config.Outputs
@@ -80,4 +58,5 @@ func main() {
 			}
 		}
 	}
+
 }
