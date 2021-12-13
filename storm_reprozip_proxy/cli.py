@@ -7,19 +7,24 @@
 # details.
 
 import click
-
 from storm_reprozip_proxy.proxy import reprozip_proxy_run
 
 
-@click.group(name="reprozip-proxy")
-@click.version_option()
-def reprozip_proxy():
+@click.group()
+def cli():
     """Reprozip Proxy base CLI."""
+    pass
 
 
-@click.command(name="run")
+@cli.command(name="run")
 @click.option("--bundle", required=True)
 @click.option("--input-file", multiple=True)
 @click.option("--input-name", multiple=True)
-def reprozip_run(bundle, input_file, input_name):
-    reprozip_proxy_run(bundle, input_file, input_name)
+@click.option(
+    "--include-user-definition/--no-include-user-definition",
+    required=False,
+    default=True,
+)
+def reprozip_run(bundle, input_file, input_name, include_user_definition):
+    """Execute the reprozip proxy."""
+    reprozip_proxy_run(bundle, input_file, input_name, include_user_definition)

@@ -7,9 +7,3 @@
 # details.
 
 """Proxy to handling files into reprounzip-docker executions"""
-
-import os
-
-REPROZIP_PROXY_DOCKER_IMAGE_TAG = "storm/storm-reprozip-proxy:latest"
-
-REPROZIP_INCLUDE_USER_DEFINITION = int(os.getenv("REPROZIP_INCLUDE_USER_DEFINITION", 1))

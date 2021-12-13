@@ -26,10 +26,35 @@ from storm_reprozip_proxy.helper.reprozip import (
     reprozip_extract_bundle_io,
 )
 
-from storm_reprozip_proxy.config import REPROZIP_INCLUDE_USER_DEFINITION
 
+def reprozip_proxy_run(bundle, input_file, input_name, include_user_definition=True):
+    """Reprozip proxy runner.
 
-def reprozip_proxy_run(bundle, input_file, input_name):
+    This Reprozip function was created to execute a Reprozip bundle inside a Docker container.
+    We adapted many of the functions defined here from the reprounzip-docker code. Creating this "proxy" was the
+    need to make edits in the Docker environment before performing the execution. This need is specific to the Storm Platform.
+
+    Args:
+
+        bundle (str): Path to the reprozip bundle
+
+        input_file (list): List of files that will be used as input of the bundle experiment.
+
+        input_name (list): List of `input_file` names in the bundle.
+
+        include_user_definition (bool): Flag to enable or disable the user definition in the reprozip command.
+
+    Returns:
+        None: The modifications will be done in the environment.
+
+    Warning:
+        This function change the files and permissions. Before you execute it, make sure you are
+        doing the right thing. This function is designed to run in Docker environments where reprozip will be performed.
+
+    Note:
+        Note that the word "proxy" refers to an operation that will be done between the execution request made
+        by the user and the execution performed by the reprozip.
+    """
     proxy_path = Path.cwd()
     proxy_path.mkdir(exist_ok=True)
 
@@ -73,7 +98,7 @@ def reprozip_proxy_run(bundle, input_file, input_name):
     # Define Busybox shell command.
     #
     click.echo("Preparing busybox commands...")
-    cmds = busybox_bundle_cmd(config.runs, REPROZIP_INCLUDE_USER_DEFINITION)
+    cmds = busybox_bundle_cmd(config.runs, include_user_definition)
 
     busybox_wrapper = (
         BusyBoxWrapperBuilder()
