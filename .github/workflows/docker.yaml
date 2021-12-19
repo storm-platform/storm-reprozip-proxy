@@ -9,8 +9,8 @@ name: dockerhub
 
 on:
   push:
-    tags:
-      - v*
+  schedule:
+  - cron: "0 3 * * 6"
 
 jobs:
   build:
@@ -50,7 +50,7 @@ jobs:
       with:
         context: .
         push: true
-        tags: stormproject/storm-reprozip-proxy:latest
+        tags: stormproject/storm-reprozip-proxy:0.2
         file: docker/proxy/Dockerfile
 
     - name: Timestamp
