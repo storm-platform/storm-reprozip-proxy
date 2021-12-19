@@ -10,6 +10,7 @@ FROM stormproject/storm-reprozip-base:latest
 # Copy files
 #
 COPY docker/proxy/tools/proxy.sh /proxy.sh
+RUN chmod +x /proxy.sh
 
 #
 # Configure container execution
