@@ -8,6 +8,8 @@
 Changes
 =======
 
-Version 0.1.0 (released TBD)
+Version 0.1.0 (2022-05-28)
+--------------------------------
 
-- Initial public release.
+- Initial public API version;
+- Implemented custom Reprozip Docker Unpacker to fit the Storm Platform requirements.
